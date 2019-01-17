@@ -1,0 +1,149 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<section class="wrap-full" *ngIf="!isLoading">
+
+  <h1>User ({{datas.length}})</h1>
+
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th></th>
+        <th>id</th>
+        <th>active</th>
+        <th>username</th>
+        <th>email</th>
+        <th>role (id)</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="datas.length === 0">
+      <tr>
+        <td colspan="7">There are no Users!</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="!isEditing">
+      <tr *ngFor="let data of datas">
+        <td><button class="button-warning" (click)="enableEditing(data)">edit</button></td>
+        <td>{{data.id}}</td>
+        <td class="likelink" (click)="toggleData('active',data)">{{data.activeReadable}}</td>
+        <td>{{data.username}}</td>
+        <td>{{data.email}}</td>
+        <td>{{data.roleIdReadable}} ({{data.roleId}})</td>
+        <td><button class="button-danger" (click)="deleteData(data)">delete</button></td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="isEditing">
+      <tr>
+        <td colspan="7">
+          <form #form="ngForm" (ngSubmit)="editData(data)" style="display:inline;">
+            <div class="row">
+              <div class="two columns">
+                <label for="active">active</label>
+              </div>
+              <div class="ten columns">
+                <select name="active" [(ngModel)]="data.active">
+                  <option value="" disabled>active</option>
+                  <option value="1">true</option>
+                  <option value="0">false</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="two columns">
+                <label for="username">username</label>
+              </div>
+              <div class="ten columns">
+                <input type="text" name="username" [(ngModel)]="data.username" placeholder="username" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="two columns">
+                <label for="email">email</label>
+              </div>
+              <div class="ten columns">
+                <input type="text" name="email" [(ngModel)]="data.email" placeholder="email" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="two columns">
+                <label for="password">new password? else leave it blank</label>
+              </div>
+              <div class="ten columns">
+                <input type="password" name="password" [(ngModel)]="data.password" placeholder="set new password">
+              </div>
+            </div>
+            <div class="row">
+              <div class="two columns">
+                <label for="roleId">role</label>
+              </div>
+              <div class="ten columns">
+                <select name="roleId" [(ngModel)]="data.roleId">
+                  <option value="" disabled>userRoleId</option>
+                  <option *ngFor="let userRole of userRoles" [value]="userRole.id">{{userRole.role}}</option>
+                </select>
+              </div>
+            </div>
+            <button class="button-primary" type="submit" [disabled]="!form.form.valid">save</button>
+            <button class="button-warning" (click)="cancelEditing()">cancel</button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>
+
+<div class="card-save" *ngIf="!isEditing">
+  <h2>Add new User</h2>
+  <form [formGroup]="addDataForm" (ngSubmit)="addData()">
+    <div class="row">
+      <div class="two columns">
+        <label for="active">active</label>
+      </div>
+      <div class="ten columns">
+        <select class="form-control" name="active" formControlName="active">
+          <option value="1">true</option>
+          <option value="0">false</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="two columns">
+        <label for="username">username</label>
+      </div>
+      <div class="ten columns">
+        <input type="text" name="username" formControlName="username" placeholder="username" required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="two columns">
+        <label for="email">email</label>
+      </div>
+      <div class="ten columns">
+        <input type="text" name="email" formControlName="email" placeholder="email" required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="two columns">
+        <label for="password">password</label>
+      </div>
+      <div class="ten columns">
+        <input type="password" name="password" formControlName="password" placeholder="password" required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="two columns">
+        <label for="roleId">role</label>
+      </div>
+      <div class="ten columns">
+        <select name="roleId" formControlName="roleId">
+          <option value="" disabled>roleId</option>
+          <option *ngFor="let userRole of userRoles" [value]="userRole.id">{{userRole.role}}</option>
+        </select>
+      </div>
+    </div>
+    <button class="button-primary" type="submit" [disabled]="!addDataForm.valid">save</button>
+  </form>
+</div>

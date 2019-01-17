@@ -1,0 +1,1 @@
+/* global custom JS here */

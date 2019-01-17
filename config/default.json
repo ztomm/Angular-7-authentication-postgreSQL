@@ -1,0 +1,82 @@
+{
+  "app": {
+    "title": "PEANauth",
+    "description": "Angular application with authentication (PEAN = PostgreSQL, Express, Angular, Node.js)",
+    "keywords": "PEAN, PostgreSQL, Express, Angular, Node.js",
+    "brand": {
+      "logo": "",
+      "favicon": ""
+    }
+  },
+  "host": "127.0.0.1",
+  "port": 3000,
+  "domain": "",
+  "baseUrl": "",
+  "db": {
+    "protocol": "postgresql",
+    "host": "localhost",
+    "port": 5432,
+    "database": "postgres",
+    "username": "postgres",
+    "password": "postgress",
+    "dialect": "postgres",
+    "pool": {
+      "max": 5,
+      "min": 0,
+      "idle": 10000
+    },
+    "define": {
+      "freezeTableName": true
+    },
+    "logging": false
+  },
+  "sessionCookie": {
+    "fileStoreDir": "sessionStore",
+    "path": "/",
+    "maxAge": 57600000,
+    "httpOnly": false,
+    "secure": true,
+    "secret": "5cvn1c0b-df1d-415b-3447-4fdg103e6ae5",
+    "key": "sessionId",
+    "collection": "sessions"
+  },
+  "token": {
+    "secret": "565f9gfgh-55jf-4h51-df4c-b496fcgfhd",
+    "expireTime": 57600000
+  },
+  "secure": {
+    "ssl": false,
+    "privateKey": "config/sslcerts/key.pem",
+    "certificate": "config/sslcerts/csr.pem",
+    "caBundle": "config/sslcerts/cert.pem"
+  },
+  "locale": {
+    "default": "de-DE",
+    "available": "de-DE,en-US"
+  },
+  "log": {
+    "app": {
+      "info": false,
+      "trace": false,
+      "var": false,
+      "request": false,
+      "response": false,
+      "error": true
+    },
+    "console": {
+      "info": false,
+      "trace": false,
+      "var": false,
+      "request": false,
+      "response": false,
+      "error": true
+    },
+    "format": "combined",
+    "options": {
+      "fileName": "app.log",
+      "maxsize": 10485760,
+      "maxFiles": 2,
+      "json": false
+    }
+  }
+}

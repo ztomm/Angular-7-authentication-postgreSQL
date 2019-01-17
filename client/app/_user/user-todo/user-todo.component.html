@@ -1,0 +1,69 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<section class="wrap-full" *ngIf="!isLoading">
+
+  <h1>Current cats ({{datas.length}})</h1>
+  
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>active</th>
+        <th>Title</th>
+        <th>deadline</th>
+        <th>done</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="datas.length === 0">
+      <tr>
+        <td colspan="5">There are no todos!</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="!isEditing">
+      <tr *ngFor="let data of datas">
+        <td>{{data.active}}</td>
+        <td>{{data.title}}</td>
+        <td>{{data.deadline}}</td>
+        <td>{{data.done}}</td>
+        <td>
+          <button class="button-warning" (click)="enableEditing(data)">Edit</button>
+          <button class="button-danger" (click)="deleteData(data)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="isEditing">
+      <tr>
+        <td colspan="5">
+          <form #form="ngForm" (ngSubmit)="editData(data)" style="display:inline">
+            <select name="active" [(ngModel)]="data.active">
+              <option value="1">true</option>
+              <option value="0">false</option>
+            </select>
+            <input type="text" name="todo" [(ngModel)]="data.todo" placeholder="Todo" required>
+            <input type="date" name="deadline" [(ngModel)]="data.deadline" placeholder="Deadline">
+            <input type="text" name="done" [(ngModel)]="data.done" placeholder="done">
+            <button class="button-primary" type="submit" [disabled]="!form.form.valid">Save</button>
+          </form>
+          <button class="button-warning" (click)="cancelEditing()">Cancel</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>
+
+<div class="card-save" *ngIf="!isEditing">
+  <h2>Add new todo</h2>
+  <form [formGroup]="addDataForm" (ngSubmit)="addData()" style="text-align:center">
+    <select name="active" formControlName="active" [(ngModel)]="data.active">
+      <option value="1">true</option>
+      <option value="0">false</option>
+    </select>
+    <input type="text" name="title" formControlName="title" placeholder="Title">
+    <input type="date" name="deadline" formControlName="deadline" placeholder="Deadline">
+    <input type="text" name="done" formControlName="done" placeholder="Done">
+    <button class="button-primary" type="submit" [disabled]="!addDataForm.valid">Add</button>
+  </form>
+</div>

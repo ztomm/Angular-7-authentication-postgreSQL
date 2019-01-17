@@ -1,0 +1,31 @@
+<div id="app">
+
+	<header>
+		<a routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" href="/"><img src="assets/images/logo.png"></a>
+		<ul>
+			<li *ngIf="auth.loggedIn">
+				<a routerLink="/user" routerLinkActive="active">User Dashboard</a>
+			</li>
+			<li *ngIf="auth.loggedIn">
+				<a routerLink="/user/todo" routerLinkActive="active">Todos</a>
+			</li>
+			<li *ngIf="auth.loggedIn && auth.isAdmin">
+				<a routerLink="/admin" routerLinkActive="active">Admin Dashboard</a>
+			</li>
+			<li *ngIf="auth.loggedIn && auth.isAdmin">
+				<a routerLink="/admin/users" routerLinkActive="active">Users</a>
+			</li>
+			<li *ngIf="!auth.loggedIn">
+				<a routerLink="/login" routerLinkActive="active">Login</a>
+			</li>
+			<li *ngIf="auth.loggedIn">
+				<a routerLink="/logout" routerLinkActive="active">Logout</a>
+			</li>
+		</ul>
+	</header>
+
+	<div id="main">
+		<router-outlet></router-outlet>
+	</div>
+
+</div>

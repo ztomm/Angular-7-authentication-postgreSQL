@@ -1,0 +1,15 @@
+<app-toast [message]="toast.message"></app-toast>
+
+<section class="wrap">
+
+  <h1>Signup</h1>
+
+  <form [formGroup]="signupForm" (ngSubmit)="signup()">
+    <label for="username">Username</label>
+    <input type="text" name="username" formControlName="username" placeholder="Username" autofocus>
+    <label for="password">Password</label>
+    <input type="password" name="password" formControlName="password" placeholder="Password" autofocus>
+    <button class="button-primary" type="submit" [disabled]="!signupForm.valid">Signup</button>
+  </form>
+
+</section>

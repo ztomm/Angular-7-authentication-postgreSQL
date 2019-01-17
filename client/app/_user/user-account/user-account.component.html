@@ -1,0 +1,15 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<section class="wrap" *ngIf="!isLoading">
+
+  <h1>Account settings {{user.username}}<span *ngIf="isAdmin"> (admin)</span></h1>
+
+  <form [formGroup]="editDataForm" (ngSubmit)="editData(user)">
+    <input type="email" name="email" formControlName="email" [value]="user.email" placeholder="Email" required>
+    <input type="password" name="password" formControlName="password" [value]="user.password" placeholder="New Password">
+    <button class="button-primary" type="submit" [disabled]="!editDataForm.valid">Save</button>
+  </form>
+
+</section>

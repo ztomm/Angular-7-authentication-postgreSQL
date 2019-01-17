@@ -1,0 +1,15 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+<section class="wrap" *ngIf="!isLoading">
+
+  <article>
+
+    <header>
+      <h1>Home</h1>
+    </header>
+
+    <p>{{datas.message}}</p>
+
+  </article>
+
+</section>
